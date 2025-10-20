@@ -1,0 +1,105 @@
+﻿<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tabs Website — YPS Coaching</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Poppins',sans-serif;line-height:1.6;padding:24px;background:#f3f4f6;color:#111827}
+    .container{max-width:900px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.08);overflow:hidden}
+    header{padding:20px 24px;border-bottom:1px solid #eef2f7;text-align:center}
+    h1{font-size:24px;color:#0f766e;margin-bottom:4px}
+    .muted{color:#475569;font-size:14px}
+    .tabs{display:flex;gap:8px;padding:16px 24px;background:#fbfdff;flex-wrap:wrap;justify-content:center}
+    .tab{background:transparent;border:1px solid transparent;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    .tab[aria-selected="true"]{background:#0ea5a1;color:white;border-color:rgba(14,165,161,0.15)}
+    .tab:focus{outline:3px solid rgba(14,165,161,0.18)}
+    .panel{padding:24px}
+    .hidden{display:none}
+    @media (max-width:600px){.tabs{overflow:auto;padding:12px}.tab{flex:0 0 auto}}
+    .whatsapp{text-align:center;font-weight:bold;margin-bottom:20px}
+    .whatsapp a{color:#16a34a;text-decoration:none}
+    .footer{text-align:center;margin-top:30px;font-weight:bold;color:#0f766e}
+  </style>
+</head>
+<body>
+  <div class="container" role="application">
+    <header>
+      <h1>YPS Coaching Class</h1>
+      <p class="muted">Learn Hindi, English, Science & Social Science Easily</p>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Sample Tabs">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="panel-home" id="tab-home">Home</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-about" id="tab-about">About</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-services" id="tab-services">Services</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-contact" id="tab-contact">Contact</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-yps" id="tab-yps">YPS Coaching</button>
+    </div>
+
+    <section id="panel-home" class="panel" role="tabpanel" aria-labelledby="tab-home">
+      <h2>Welcome</h2>
+      <p>YPS Coaching Class mein aapka swagat hai! Hum aapke learning journey ko easy aur effective banate hain.</p>
+    </section>
+
+    <section id="panel-about" class="panel hidden" role="tabpanel" aria-labelledby="tab-about" hidden>
+      <h2>About</h2>
+      <p>YPS Coaching Class ek aisi institute hai jo students ko Hindi, English, Science aur Social Science subjects mein strong banati hai.</p>
+    </section>
+
+    <section id="panel-services" class="panel hidden" role="tabpanel" aria-labelledby="tab-services" hidden>
+      <h2>Our Services</h2>
+      <ul>
+        <li>Video Lectures for Each Chapter</li>
+        <li>Notes and Worksheets</li>
+        <li>Personal Doubt Solving Sessions</li>
+      </ul>
+    </section>
+
+    <section id="panel-contact" class="panel hidden" role="tabpanel" aria-labelledby="tab-contact" hidden>
+      <h2>Contact Us</h2>
+      <p>📱 Whatsapp: <a href="https://wa.me/917389880770">7389880770</a> | <a href="https://wa.me/917648802113">7648802113</a></p>
+      <p>Email: example@domain.com</p>
+    </section>
+
+    <section id="panel-yps" class="panel hidden" role="tabpanel" aria-labelledby="tab-yps" hidden>
+      <h2>YPS Coaching Class</h2>
+      <div class="whatsapp">
+        📱 Whatsapp: <a href="https://wa.me/917389880770">7389880770</a> | <a href="https://wa.me/917648802113">7648802113</a>
+      </div>
+      <p><strong>Hello Students,</strong></p>
+      <p>आप हिन्दी, अंग्रेजी, विज्ञान तथा सोशल साइंस विषय के जिस चैप्टर का वीडियो चाहते हैं, आप हमसे उस चैप्टर का वीडियो मात्र <strong>₹20/-</strong> में प्राप्त कर सकते हैं।</p>
+      <p>वीडियो से आप उस चैप्टर को आसानी से समझ पाएंगे, जिससे आपको याद करने में बहुत ज्यादा आसानी होगी। वीडियो से समझने के कारण आपका समय बहुत बचेगा अर्थात बहुत कम समय में आपको वह चैप्टर समझ में आ जाएगा।</p>
+      <p>आपके भविष्य के लिए हमारी ढेर सारी शुभकामनाएं 🙏</p>
+      <div class="footer">— YPS Coaching Class Team —</div>
+    </section>
+
+  </div>
+
+  <script>
+    (function(){
+      const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+      const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+      function activateTab(newTab){
+        tabs.forEach(t=>{t.setAttribute('aria-selected','false');t.tabIndex=-1});
+        panels.forEach(p=>{p.hidden=true;p.classList.add('hidden')});
+        newTab.setAttribute('aria-selected','true');newTab.tabIndex=0;
+        const panel=document.getElementById(newTab.getAttribute('aria-controls'));
+        if(panel){panel.hidden=false;panel.classList.remove('hidden');}
+        newTab.focus();
+      }
+      tabs.forEach(tab=>{
+        tab.addEventListener('click',()=>activateTab(tab));
+        tab.addEventListener('keydown',e=>{
+          const i=tabs.indexOf(tab);
+          if(e.key==='ArrowRight'){e.preventDefault();activateTab(tabs[(i+1)%tabs.length]);}
+          else if(e.key==='ArrowLeft'){e.preventDefault();activateTab(tabs[(i-1+tabs.length)%tabs.length]);}
+          else if(e.key==='Home'){e.preventDefault();activateTab(tabs[0]);}
+          else if(e.key==='End'){e.preventDefault();activateTab(tabs[tabs.length-1]);}
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
